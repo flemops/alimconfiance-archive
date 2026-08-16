@@ -30,11 +30,13 @@ jobs:
             fi
           done
 
-          curl -sSL --fail --retry 3 --max-time 600 -o tmp.csv \
+          # --compressed : le serveur répond en Content-Encoding gzip
+          curl -sSL --fail --compressed --retry 3 --max-time 600 -o tmp.csv \
             'https://dgal.opendatasoft.com/explore/dataset/export_alimconfiance/download/?format=csv&timezone=Europe/Berlin&use_labels_for_header=true'
 
           # Garde-fous : jamais archiver une page d'erreur ou un fichier tronqué
           size=$(stat -c%s tmp.csv)
+          echo "téléchargé : $size octets — début : $(head -c 80 tmp.csv)"
           [ "$size" -ge 10000000 ] || { echo "fichier suspect : $size octets"; exit 1; }
           head -c 4000 tmp.csv | grep -q 'Synthese_eval_sanit' || { echo "en-tête inattendu"; exit 1; }
 
