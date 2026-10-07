@@ -58,4 +58,4 @@ Ce dépôt n'est ni affilié ni approuvé par le ministère.
 
 ## Mises à jour
 
-L'action `actions/checkout` est épinglée par SHA (tag officiel `v4.3.1`, vérifié via l'API GitHub). Pour la mettre à jour : relever le SHA du nouveau tag (`gh api repos/actions/checkout/git/ref/tags/<tag>`), le remplacer dans `snapshot.yml`, puis lancer le workflow à la main avant de fusionner.
+Les GitHub Actions restent épinglées par SHA. Dependabot vérifie mensuellement les nouvelles versions et ouvre une PR groupée ; la PR doit être relue, puis le workflow `snapshot` peut être lancé manuellement avant fusion pour valider la mise à jour.
